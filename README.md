@@ -54,3 +54,4 @@ AdminLTE 1.x can be easily upgraded to 2.x using [this guide](https://adminlte.i
 "# infolabApp" 
 "# infolabApp" 
 "# infolabApp" 
+"# infolabApp" 
