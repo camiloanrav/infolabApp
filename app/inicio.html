@@ -959,6 +959,9 @@
                                         class="fa fa-trash-o"></i></a>
                             </label>
                         </div>
+                        <div style="display: none" id="sign-in-status"></div>
+                        <div style="display: none" id="sign-in"></div>
+                        <div style="display: none" id="account-details"></div>
                         <!-- /.form-group -->
                     </form>
                 </div>
@@ -970,6 +973,72 @@
        immediately after the control sidebar -->
         <div class="control-sidebar-bg"></div>
     </div>
+    <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-app.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDE2gOvl2xuudV-DP9Eeil9y2w9xuM1sDA",
+            authDomain: "infolabapp-b4b18.firebaseapp.com",
+            databaseURL: "https://infolabapp-b4b18.firebaseio.com",
+            projectId: "infolabapp-b4b18",
+            storageBucket: "",
+            messagingSenderId: "751739242408",
+            appId: "1:751739242408:web:4f4228cd9ae897b5"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <script type="text/javascript">
+
+        //Metodo para confirmar si hay una sesión iniciada o no. No deja acceder desde la URL si no hay una sesión
+        //iniciada desde una cuenta Gmail.
+            initApp = function () {
+                firebase.auth().onAuthStateChanged(function (user) {
+                    if (user) {
+                        // Sí usuario inició sesión.
+                        var displayName = user.displayName;
+                        var email = user.email;                     
+                        var emailVerified = user.emailVerified;
+                        var photoURL = user.photoURL;
+                        var uid = user.uid;
+                        var phoneNumber = user.phoneNumber;
+                        var providerData = user.providerData;
+                        user.getIdToken().then(function (accessToken) {
+                            document.getElementById('sign-in-status').textContent = 'Signed in';
+                            document.getElementById('sign-in').textContent = 'Sign out';
+                            //Poner la foto de perfil asociada a la cuenta gmail.
+                            document.getElementById('foto').src = photoURL;                        
+                            //Poner el email asociado a la cuenta.
+                            document.getElementById('nameUser').innerHTML += displayName;
+                            document.getElementById("inputEmail").value = email;
+                            document.getElementById('account-details').textContent = JSON.stringify({
+                                displayName: displayName,
+                                email: email,
+                                emailVerified: emailVerified,
+                                phoneNumber: phoneNumber,
+                                photoURL: photoURL,
+                                uid: uid,
+                                accessToken: accessToken,
+                                providerData: providerData
+                            }, null, '  ');
+                        });                                                                 
+                    } else {
+                        //Sí no hay sesión iniciada.
+                        document.getElementById('sign-in-status').textContent = 'Signed out';
+                        document.getElementById('sign-in').textContent = 'Sign in';
+                        document.getElementById('account-details').textContent = 'null';
+                        alert('No hay una sesión iniciada. Redireccionando a pagina de login.');
+                        window.location.href = "login.html";
+                    }
+                }, function (error) {
+                    console.log(error);
+                });
+            };
+            window.addEventListener('load', function () {
+                initApp()
+            });
+        </script>
     <!-- ./wrapper -->
 
     <!-- jQuery 3 -->
