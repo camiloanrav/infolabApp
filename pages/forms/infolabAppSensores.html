@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Advanced form elements</title>
+  <title>InfolabApp</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -93,7 +93,6 @@
             </div>
           </div>
           <div class="col-md-6">
-
           </div>
           <!-- /.col -->
           <div class="col-md-3 offset-md-4">
@@ -113,7 +112,15 @@
         </div>
         <!-- /.row -->
         <div class="row">
-          <div class="col-md-7"></div>
+          <div class="col-md-7">
+            <svg width="400" height="250" style="margin-top: 7em; margin-left: 15em;">
+              <rect id="" width="400" height="250" style="fill:rgb(0,0,255);" />
+              <rect id="" width="200" height="80" x="200" y="0" style="fill:rgb(0,255,255);" />
+              <rect id="" width="130" height="80" x="270" y="170" style="fill:rgb(0, 255, 106);" />
+              <rect id="" width="130" height="80" x="140" y="170" style="fill:rgb(255, 0, 119);" />
+              <rect id="" width="140" height="80" x="0" y="170" style="fill:rgb(211, 214, 38);" />
+            </svg>
+          </div>
           <div class="col-md-5">
               <div class="box box-default">
                   <div class="box-header with-border">
@@ -182,7 +189,35 @@
     //Date range picker
     $('#reservation').daterangepicker()
     //Date range picker with time picker
-    $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 1, locale: { format: 'MM/DD/YYYY hh:mm A' }})
+    $('#reservationtime').daterangepicker({ timePicker: true, applyButtonClasses: "btn-info", timePickerIncrement: 60, autoApply: true,  locale: { format: 'MM/DD/YYYY hh:mm A', applyLabel: "Aplicar", cancelLabel: "Cancelar", "daysOfWeek": [
+            "Do",
+            "Lu",
+            "Ma",
+            "Mi",
+            "Ju",
+            "Vi",
+            "Sa"
+        ],
+        "monthNames": [
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Augosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre"
+        ], }})
+    //Event date range picker
+    $('#reservationtime').on('apply.daterangepicker', function(ev, picker) {
+      console.log(picker.startDate.format('YYYY-MM-DD hh:mm'));
+      console.log(picker.endDate.format('YYYY-MM-DD hh:mm'));
+    })
+    
     //Date range as a button
     $('#daterange-btn').daterangepicker(
       {
