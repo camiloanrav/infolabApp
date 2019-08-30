@@ -22,25 +22,25 @@
 
   <script src="https://cdn.firebase.com/libs/firebaseui/4.1.0/firebaseui.js"></script>
 
-  
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-app.js"></script>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-app.js"></script>
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/4.1.0/firebaseui.css" />
 
 
 
 </head>
 
-<body class="hold-transition login-page">
+<body class="hold-transition login-page fondo">
   <div class="login-box">
     <div class="login-logo">
-      <a href="../../index2.html"><b>Infolab</b>APP</a>
+      <a href=""><b>Infolab</b>APP</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
       <p class="login-box-msg">Ingresa para iniciar sesión</p>
 
-      <form action="../../index2.html" method="post">
+      <form action="" method="post">
         <div class="form-group has-feedback">
           <input type="email" class="form-control" placeholder="Email">
           <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -64,7 +64,7 @@
           <!-- /.col -->
         </div>
       </form>
-      <div id="firebaseui-auth-container">Epa</div>
+      <div id="firebaseui-auth-container"></div>
 
       <a href="#">Olvidé mi contraseña</a><br>
       <a href="register.html" class="text-center">Registrarse como usuario nuevo</a>
@@ -136,7 +136,16 @@
 
 <!-- The surrounding HTML is left untouched by FirebaseUI.
          Your app may use that space for branding, controls and other customizations.-->
-
+<style>
+  .fondo {
+    background: #4568DC;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #B06AB3, #4568DC);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #B06AB3, #4568DC);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
+</style>
 
 
 </html>
