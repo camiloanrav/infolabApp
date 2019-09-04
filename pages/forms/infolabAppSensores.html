@@ -115,12 +115,12 @@
         <!-- /.row -->
         <div class="row">
           <div class="col-md-7">
-            <svg width="400" height="250" style="margin-top: 7em; margin-left: 15em;">
-              <rect id="" width="400" height="250" style="fill:rgb(0,0,255);" />
-              <rect id="" width="200" height="80" x="200" y="0" style="fill:rgb(0,255,255);" />
-              <rect id="" width="130" height="80" x="270" y="170" style="fill:rgb(0, 255, 106);" />
-              <rect id="" width="130" height="80" x="140" y="170" style="fill:rgb(255, 0, 119);" />
-              <rect id="" width="140" height="80" x="0" y="170" style="fill:rgb(211, 214, 38);" />
+            <svg width="400em" height="250em" style="margin-top: 7em; margin-left: 15em;">
+              <rect onclick="probando(id)" id="infolabPasillo" width="400" height="250" style="fill:rgb(245, 205, 149);" />
+              <rect onclick="probando(id)" id="redes" width="200" height="80" x="200" y="0" style="fill:rgb(245, 245, 149);" />
+              <rect onclick="probando(id)" id="seguridad" width="130" height="80" x="270" y="170" style="fill:rgb(245, 149, 149);" />
+              <rect onclick="probando(id)" id="computacionGrafica" width="130" height="80" x="140" y="170" style="fill:rgb(245, 245, 149);" />
+              <rect onclick="probando(id)" id="infolabSalon" width="140" height="80" x="0" y="170" style="fill:rgb(245, 100, 100);" />
             </svg>
           </div>
           <div class="col-md-5">
@@ -177,6 +177,9 @@
     <script src="../../dist/js/demo.js"></script>
     <!-- Page script -->
     <script>
+      function probando(id){
+        alert(id);
+      }
       $(function () {
         //Initialize Select2 Elements
         $('.select2').select2()
@@ -192,8 +195,8 @@
         $('#reservation').daterangepicker()
         //Date range picker with time picker
         $('#reservationtime').daterangepicker({
-          timePicker: true, applyButtonClasses: "btn-info", timePickerIncrement: 60, autoApply: true, locale: {
-            format: 'MM/DD/YYYY hh:mm A', applyLabel: "Aplicar", cancelLabel: "Cancelar", "daysOfWeek": [
+          timePicker: true, applyButtonClasses: "btn-info", maxSpan:{days:7}, timePicker24Hour: true, timePickerIncrement: 60, autoApply: true, locale: {
+            format: 'DD/MM/YYYY hh:mm A', applyLabel: "Aplicar", cancelLabel: "Cancelar", "daysOfWeek": [
               "Do",
               "Lu",
               "Ma",
@@ -220,8 +223,8 @@
         })
         //Event date range picker
         $('#reservationtime').on('apply.daterangepicker', function (ev, picker) {
-          console.log(picker.startDate.format('YYYY-MM-DD hh:mm'));
-          console.log(picker.endDate.format('YYYY-MM-DD hh:mm'));
+          console.log(picker.startDate.format('YYYY-MM-DDThh:mm'));
+          console.log(picker.endDate.format('YYYY-MM-DDThh:mm'));
         })
 
         //Date range as a button
