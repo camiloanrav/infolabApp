@@ -690,6 +690,7 @@ a:focus {
 }
 .sidebar-expanded-on-hover .main-sidebar {
   box-shadow: 3px 0 8px rgba(0, 0, 0, 0.125);
+  
 }
 .sidebar-menu,
 .main-sidebar .user-panel,
@@ -1579,10 +1580,10 @@ a:focus {
   position: relative;
   border-radius: 3px;
   background: #ffffff;
-  border-top: 3px solid #d2d6de;
+  border-top: 1px solid #d2d6de;
   margin-bottom: 20px;
   width: 100%;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
 }
 .box.box-primary {
   border-top-color: #3c8dbc;

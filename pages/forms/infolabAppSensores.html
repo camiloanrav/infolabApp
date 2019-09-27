@@ -30,7 +30,7 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
-  <script src="../../node_modules/echarts//dist/echarts.js"></script>
+  <script src="../../node_modules/echarts/dist/echarts.js"></script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,7 +44,7 @@
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="hold-transition skin-blue layout-top-nav">
+<body class="hold-transition skin-blue layout-top-nav" style="background-color:rgb(231, 231, 231);">
   <div class="">
 
     <header class="main-header">
@@ -91,6 +91,7 @@
               <select class="form-control select2" style="width: 100%;">
                 <option selected="selected">Ruido</option>
                 <option>Temperatura</option>
+                <option>Humedad</option>
               </select>
             </div>
           </div>
@@ -115,8 +116,8 @@
         <!-- /.row -->
         <div class="row">
           <div class="col-md-7">
-            <svg width="400em" height="250em" style="margin-top: 7em; margin-left: 15em;">
-              <rect onclick="probando(id)" id="infolabPasillo" width="400" height="90" y="80" style="fill:rgb(245, 205, 149);" />
+            <svg width="400em" height="250" style="margin-top: 7em; margin-left: 15em;">
+              <rect onclick="probando(id)" id="infolabPasillo" width="400" height="90" y="80" style="fill:rgb(245, 207, 149);" />
               <rect onclick="probando(id)" id="redes" width="200" height="80" x="200" y="0" style="fill:rgb(245, 245, 149);" />
               <rect onclick="probando(id)" id="seguridad" width="130" height="80" x="270" y="170" style="fill:rgb(245, 149, 149);" />
               <rect onclick="probando(id)" id="computacionGrafica" width="130" height="80" x="140" y="170" style="fill:rgb(245, 245, 149);" />
@@ -124,39 +125,39 @@
             </svg>
           </div>
           <div class="col-md-5">
-            <div class="box box-default">
+            <div id="informacion" class="box box-primary" style="display: none; background-color: rgb(255, 255, 255)">
               <div class="box-header with-border">
-                <h3 class="box-title">Grafica</h3>
+                <h3 class="box-title" style="margin-right: 21em; color: black;">Información</h3>
+                <button type="button" style="background-color: rgb(255, 255, 255); border: 1px solid #4097C9;" class="btn btn-lg active" onclick="cargarGraficaAreaSimple(0)"><i class="fa fa-line-chart"></i></button>
+                <button type="button" style="background-color: rgb(255, 255, 255); border: 1px solid #4097C9;" class="btn btn-lg active" onclick="cargarGraficaMapaDeCalor(0)"><i class="fa fa-th"></i></button>
               </div>
               <div class="box-body container">
                 <div >
-                    <div>
-                        <div id="main" style="width:600px; height:350px;"></div>
-                        <button onclick="cargarGraficaAreaSimple(0)">Hora</button>
-                        <button onclick="cargarGraficaAreaSimple(1)">Dia</button>
-                        <button onclick="cargarGraficaAreaSimple(2)">Mes</button>
+                    <div id="graficaAreaSimple" style="display: none">
+                        <div style="margin-left: 1.2em">
+                            <button class="btn active btn-sm" style="background-color: rgb(255, 255, 255); border: 1px solid #4097C9;" onclick="cargarGraficaAreaSimple(0)">H</button>
+                            <button class="btn active btn-sm" style="background-color: rgb(255, 255, 255); border: 1px solid #4097C9;" onclick="cargarGraficaAreaSimple(1)">D</button>
+                            <button class="btn active btn-sm" style="background-color: rgb(255, 255, 255); border: 1px solid #4097C9;" onclick="cargarGraficaAreaSimple(2)">M</button>
+                        </div>
+                        
+                        <div id="main" style="width:600px; height:420px;"></div>
                     </div>
-                    <div>
-                        <div id="main2" style="width:600px; height:350px;"></div>
-                        <button onclick="cargarGraficaMapaDeCalor(0)">Dia</button>
-                        <button onclick="cargarGraficaMapaDeCalor(1)">Mes</button>
+                    <div id="graficaMapaDeCalor" style="display: none">
+                        <div style="margin-left: 1.2em">
+                            <button class="btn active btn-sm" style="background-color: rgb(255, 255, 255); border: 1px solid #4097C9;" onclick="cargarGraficaMapaDeCalor(0)">D</button>
+                            <button class="btn active btn-sm" style="background-color: rgb(255, 255, 255); border: 1px solid #4097C9;" onclick="cargarGraficaMapaDeCalor(1)">M</button>
+                        </div>
+                        <div id="main2" style="width:600px; height:420px;"></div>
                     </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <!--<button onclick="generarDatos()">generar datos</button>-->
       </section>
       <!-- /.content -->
     </div>
-    <!-- /.content-wrapper -->
-    <footer class="main-footer">
-      <div class="pull-right hidden-xs">
-        <b>Version</b> 2.4.13
-      </div>
-      <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
-      reserved.
-    </footer>
 
     <!-- jQuery 3 -->
     <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
@@ -207,7 +208,7 @@
         $('#reservation').daterangepicker()
         //Date range picker with time picker
         $('#reservationtime').daterangepicker({
-          timePicker: true, applyButtonClasses: "btn-info", maxSpan:{days:7}, timePicker24Hour: true, timePickerIncrement: 60, autoApply: true, locale: {
+          timePicker: true, applyButtonClasses: "btn-info", maxSpan:{days:7}, timePicker24Hour: true, timePickerIncrement: 59, autoApply: true, locale: {
             format: 'DD/MM/YYYY hh:mm A', applyLabel: "Aplicar", cancelLabel: "Cancelar", "daysOfWeek": [
               "Do",
               "Lu",
@@ -235,11 +236,14 @@
         })
         //Event date range picker
         $('#reservationtime').on('apply.daterangepicker', function (ev, picker) {
-          console.log(picker.startDate.format('YYYY-MM-DD hh:mm:ss'));
-          console.log(picker.endDate.format('YYYY-MM-DD hh:mm:ss'));
-          traerDatos(picker.startDate.format('YYYY-MM-DD hh:mm:ss')+"&fin="+picker.endDate.format('YYYY-MM-DD hh:mm:ss'));
+          console.log(picker.startDate.format('YYYY-MM-DD H:mm'));
+          console.log(picker.endDate.format('YYYY-MM-DD H:mm'));
+          document.getElementById("informacion").style.display = "block";
+          //traerDatos(picker.startDate.format('YYYY-MM-DD HH:mm')+"&fin="+picker.endDate.format('YYYY-MM-DD H:mm'));
+          generarDatos();
         })
-
+          
+        
         //Date range as a button
         $('#daterange-btn').daterangepicker(
           {
@@ -303,7 +307,6 @@
       var semanas = [];
       var meses = [];
       var horas = [];
-      var valores = [];
       var celdas = [];
       var celdasMeses = [];
 
@@ -312,7 +315,7 @@
       var hora = "";
       var diasPorTodosLosMeses = [];
 
-      var datosPrueba = [];
+      var datosGenerados = [];
       var fechaPrueba;
       var s1 = 0, me1 = 0, me2=1; h1 = 0, h2 = 0,d1 = 1, a=2019, mi1=0, s2 = 0, mi2=0;
       var valorPrueba = 0;
@@ -322,6 +325,7 @@
       var sumaMeses = 0; ctrSumaMeses = 0; promediosMesesPorHoras = []; var promediosMeses = [];
       var sumaHoras = 0; ctrHoras = 0; promediosDias = [];
       var promedio = 0; promedioMes = 0;
+      var p = 0;
 
       var cantidadDiasAlMes = 0;
       var valoresMensualesPorHoras = [];
@@ -331,40 +335,46 @@
         fechas = [];
         promediosDias = [];
         dias = [];
+
         promediosMeses = [];
         meses = [];
+        mes = "";
         celdas = [];
         celdasMeses = [];
         horas = [];
+        hora = "";
+        diasPorTodosLosMeses = [];
+        promediosMesesPorHoras = [];
+        p = 0;
 
 
-            //Obtener datos diarios
-            for(let i = 0; datosPrueba.length > i; i++){
-                fechas.push(datosPrueba[i].marcatiempo);
-                valores.push(datosPrueba[i].valor);
-                var res = datosPrueba[i].marcatiempo.split(" ");
-                //Almacena los diferentes dias
-                if(res[0] != dia){
-                    dias.push(res[0]);
-                    dia = res[0];
-                    //Guarda el promedio para cada dia en total
-                    if(i!=0){
-                        promediosDias.push(sumaHoras/ctrHoras);
-                        sumaHoras = 0;
-                        ctrHoras = 0;
-                    }
-                    //Almacena los diferentes meses
-                    if(i == 0){
-                        meses.push(res[0].substr(0, 7));
-                        mes = res[0].substr(0, 7);
-                    }else if(res[0].substr(0, 7) != mes){
-                        diasPorTodosLosMeses.push(cantidadDiasAlMes);
-                        cantidadDiasAlMes = 0;
+        //Obtener datos diarios
+        for(let i = 0; datosPrueba.length > i; i++){
+            fechas.push(datosPrueba[i].marcatiempo);
+            valores.push(datosPrueba[i].valor);
+            var res = datosPrueba[i].marcatiempo.split(" ");
+            //Almacena los diferentes dias
+            if(res[0] != dia){
+                dias.push(res[0]);
+                dia = res[0];
+                //Guarda el promedio para cada dia en total
+                if(i!=0){
+                    promediosDias.push(sumaHoras/ctrHoras);
+                    sumaHoras = 0;
+                    ctrHoras = 0;
+                }
+                //Almacena los diferentes meses
+                if(i == 0){
+                    meses.push(res[0].substr(0, 7));
+                    mes = res[0].substr(0, 7);
+                }else if(res[0].substr(0, 7) != mes){
+                    diasPorTodosLosMeses.push(cantidadDiasAlMes);
+                    cantidadDiasAlMes = 0;
 
-                        meses.push(res[0].substr(0, 7));
-                        mes = res[0].substr(0, 7);
-                    }
-                    cantidadDiasAlMes ++;
+                    meses.push(res[0].substr(0, 7));
+                    mes = res[0].substr(0, 7);
+                }
+                cantidadDiasAlMes ++;
                 } 
                 //Calcula el promedio por dia
                 if(res[0] == dia || i == 0){
@@ -387,7 +397,7 @@
                 }
             }
             //Genera una matriz con los promedios de los valores para cada hora
-            let p = 0;
+            p = 0;
             for(let k = 0;  k < dias.length; k++){
                 for(let j = 0; j < horas.length; j++){
                     let arr = [];
@@ -412,11 +422,9 @@
                             promedioMes+=valores[i+(horas.length*j)];
                             ctrSumaMeses++;
                         }
-                        //console.log(promedioMes+" - "+ctrSumaMeses);
                     }
                     //almacena el promedio por mes en cada una de sus horas
                     promediosMesesPorHoras.push(promedioMes/ctrSumaMeses);
-                    //console.log(promediosMesesPorHoras);
                     promedioMes = 0;
                     ctrSumaMeses = 0;
                 }
@@ -425,6 +433,7 @@
                 //Empieza a recorrer las horas del siguiente mes
                 p++;
             }
+
             //Genera una matriz con los promedios de los valores para cada hora de los meses y el promedio completo para cada mes
             p = 0;
             for(let k = 0;  k < meses.length; k++){
@@ -436,13 +445,18 @@
                     arr[2] = promediosMesesPorHoras[p];
                     celdasMeses.push(arr);
                     
-                    //Genera el promedio completo para todo el mes
-                    sumaMeses++;
-                    promedioMes += promediosMesesPorHoras[p];
-
+                    //Genera el promedio completo para todo el mes evitando los valores vacios en la matriz 
+                    if(!Number.isNaN(promediosMesesPorHoras[p])){
+                      sumaMeses++;
+                      promedioMes += promediosMesesPorHoras[p];
+                      console.log(promediosMesesPorHoras[p] + " + " + sumaMeses);
+                    }
+                    
                     p ++;
                 }
+                console.log("promediomes: "+promedioMes + ", sumaMeses: " + sumaMeses);
                 promediosMeses.push(promedioMes/sumaMeses);
+                console.log("promediosMeses: "+promediosMeses);
                 sumaMeses = 0;
                 promedioMes = 0;
             }
@@ -450,14 +464,15 @@
             //console.log(meses);
 
             //Llama el metodo para pintar las graficas
-            cargarGraficaMapaDeCalor(0);
             cargarGraficaAreaSimple(0);
         }
-
+        
         function cargarGraficaAreaSimple(formato){
             //horas
-            data = 0;
-            dataX = 0;
+            document.getElementById("graficaMapaDeCalor").style.display = "none";
+            document.getElementById("graficaAreaSimple").style.display = "block";
+            data = "";
+            dataX = "";
             if(formato == 0){
                 data = valores;
                 dataX = fechas;
@@ -470,8 +485,6 @@
                 data = promediosMeses;
                 dataX = meses;
             }
-            console.log(data);
-            console.log(dataX);
 
             option = {
                 tooltip: {
@@ -480,18 +493,30 @@
                         return [pt[0], '10%'];
                     }
                 },
-                title: {
-                    left: 'center',
-                    text: 'Area Simple',
-                },
                 xAxis: {
                     type: 'category',
                     boundaryGap: false,
-                    data: dataX
+                    data: dataX,
+                    axisLabel: {
+                        textStyle: {
+                            color: "black"
+                        }
+                    }
                 },
                 yAxis: {
                     type: 'value',
-                    boundaryGap: [0, '100%']
+                    boundaryGap: [0, '100%'],
+                    axisLabel: {
+                        textStyle: {
+                            color: "black"
+                        }
+                    }
+                },
+                grid: {
+                    height: '70%',
+                    width: '85%',
+                    y: '3%',
+                    x:'8%'
                 },
                 dataZoom: [{
                     type: 'inside',
@@ -500,12 +525,16 @@
                 }, {
                     start: 0,
                     end: 100,
+                    textStyle: {
+                            color: "black"
+                    },
+                    bottom: '12%',
                     handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
-                    handleSize: '80%',
+                    handleSize: '100%',
                     handleStyle: {
-                        color: '#fff',
+                        color: 'white',
                         shadowBlur: 3,
-                        shadowColor: 'rgba(0, 0, 0, 0.6)',
+                        shadowColor: 'rgba(0, 0, 0, 0.5)',
                         shadowOffsetX: 2,
                         shadowOffsetY: 2
                     }
@@ -536,9 +565,29 @@
             // use configuration item and data specified to show chart
             myChart.setOption(option);
             window.myChart.resize();
+            //Realiza modificaciones a la grafica en el dataZoom
+            myChart.dispatchAction({
+                type: 'dataZoom',
+                batch: [{
+                    dataZoomIndex: 1,
+                    start: 0,
+                    end: 40
+                }]
+            });
+            myChart.dispatchAction({
+                type: 'dataZoom',
+                batch: [ {
+                    dataZoomIndex: 1,       
+                    start: 0,
+                    end: 100
+                }]
+            });
         }
 
         function cargarGraficaMapaDeCalor(formato){
+
+            document.getElementById("graficaMapaDeCalor").style.display = "block";
+            document.getElementById("graficaAreaSimple").style.display = "none";
             if(formato == 0){
                 data = celdas;
                 dataX = dias;
@@ -553,15 +602,11 @@
             tooltip: {
                 position: 'top'
             },
-            title: {
-                        left: 'center',
-                        text: 'Mapa de Calor'
-                    },
             animation: false,
             grid: {
-                height: '75%',
-                width: '80%',
-                y: '8%',
+                height: '70%',
+                width: '85%',
+                y: '3%',
                 x:'8%'
             },
             xAxis: {
@@ -569,6 +614,11 @@
                 data: dataX,
                 splitArea: {
                     show: true
+                },
+                axisLabel: {
+                    textStyle: {
+                    color: "black"
+                    }
                 }
             },
             yAxis: {
@@ -576,6 +626,11 @@
                 data: dataY,
                 splitArea: {
                     show: true
+                },
+                axisLabel: {
+                    textStyle: {
+                    color: "black"
+                    }
                 }
             },
                 dataZoom: [{
@@ -585,10 +640,12 @@
                 }, {
                     start: 0,
                     end: 100,
-                    left: '8%',
-                    bottom: '8%',
+                    bottom: '12%',
+                    textStyle: {
+                            color: "black"
+                    },
                     handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
-                    handleSize: '80%',
+                    handleSize: '100%',
                     handleStyle: {
                         color: '#fff',
                         shadowBlur: 3,
@@ -598,12 +655,15 @@
                     }
                 }],
             visualMap: {
-                min: 0,
-                max: 14,
+                min: 18,
+                max: 28,
                 calculable: true,
                 orient: 'horizontal',
-                left: '40%',
-                bottom: '0%'
+                left: '35%',
+                bottom: '0%',
+                textStyle: {
+                        color: "black"
+                }
             },
             series: [{
                 name: 'Valor',
@@ -624,11 +684,12 @@
             }]
         };
             myChart2.setOption(option);
-            window.myChart.resize();
+            window.myChart2.resize();
         }
 
         function traerDatos(fechas){
-            var url = "http://11.11.6.11:3000/registros/lapso?inicio=" + fechas;
+            var url = "http://localhost:3000/registros/hora?inicio=" + fechas;
+            console.log(url);
             fetch(url,{
                 method: 'GET',
                 headers: {
@@ -643,11 +704,60 @@
                 // Your code for handling the data you get from the API
                 console.log(data);
                 procesarDatos(data);
+                data = "";
             })
             .catch(function(errors) {
                 console.log(errors);
                 // This is where you run code if the server returns any errors
             });
+        }
+
+        function generarDatos(){
+          s1 = 0, me1 = 0, me2=1; h1 = 0, h2 = 0,d1 = 1, a=2019, mi1=0, s2 = 0, mi2=0, id=0;
+          fechaPrueba = "";
+          valorPrueba = 0;
+          for(let k = 0;  k < 1200; k++){
+              if(k < 350)
+              valorPrueba = Math.floor((Math.random() * 2) + 18);
+              else if(k >= 600 && k < 1100)
+              valorPrueba = Math.floor((Math.random() * 10) + 20);
+              else
+              valorPrueba = Math.floor((Math.random() * 5) + 20);
+              
+              if(h1 == 2 && h2 ==4){
+                  h1 = 0;
+                  h2 = 0;
+                  d1++;
+              }
+              if(h2 == 10){
+                  h1 ++;
+                  h2=0;
+              }
+              if(d1 >= 32){
+                  d1 = 1;
+                  me2++;
+              }
+              if(me2 == 9){
+                  me2 = 0;
+                  me1++;
+              }
+              if(me1 == 1 && me2 == 2){
+                  me1 = 0;
+                  me2 = 1;
+              }
+
+              if(d1 < 10){
+                  fechaPrueba = a+"-"+me1+me2+"-0"+d1+" "+h1+h2+":"+mi1+mi2+":"+s1+s2;
+              }else{
+                  fechaPrueba = a+"-"+me1+me2+"-"+d1+" "+h1+h2+":"+mi1+mi2+":"+s1+s2;
+              }
+              datosGenerados.push({"id":id,"marcatiempo":fechaPrueba,"valor":valorPrueba,"sensor_id":1});
+              h2++;
+              id++;
+          }
+          console.log(datosGenerados);
+          procesarDatos(datosGenerados);
+          datosGenerados = [];
         }
 
     </script>
